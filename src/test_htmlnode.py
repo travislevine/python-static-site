@@ -3,20 +3,50 @@ from htmlnode import HTMLNode
 
 class TestHTMLNode(unittest.TestCase):
     def test_to_html_props(self):
-        # 1. Create a node with some props
         node = HTMLNode(
-            "tag",
-            "value",
+            "div",
+            "Hello, world!",
             None,
-            {"class": "primary", "href": "https://www.google.com"}
+            {"class": "greeting", "href": "https://boot.dev"},
+        )
+        self.assertEqual(
+            node.props_to_html(),
+            ' class="greeting" href="https://boot.dev"',
         )
 
-        # 2. Call the method you want to test
-        # 3. Use self.assertEqual() to check if the result matches what you expect
-        # self.assertEqual(..., ...)
+    def test_values(self):
+        node = HTMLNode(
+            "p",
+            "What a strange world",
+        )
+        self.assertEqual(
+            node.tag,
+            "p",
+        )
+        self.assertEqual(
+            node.value,
+            "What a strange world",
+        )
+        self.assertEqual(
+            node.children,
+            None,
+        )
+        self.assertEqual(
+            node.props,
+            None,
+        )
 
-        # Add more test methods here! 
-        # Try testing a node with None for props, or different tags.
+    def test_repr(self):
+        node = HTMLNode(
+            "p",
+            "What a strange world",
+            None,
+            {"class": "primary"},
+        )
+        self.assertEqual(
+            node.__repr__(),
+            "HTMLNode(p, What a strange world, children: None, props: {'class': 'primary'})",
+        )
 
 if __name__ == "__main__":
     unittest.main()
